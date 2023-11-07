@@ -32,8 +32,6 @@ float moyenne(etudiant *e){
     return s1/s2;
 }
 
-
-
 int main() {
     // Créer 3 variables d'étudiants avec l'insertion des données (il faut utiliser l’allocation dynamique).
     etudiant *etudiants = new etudiant[3];
