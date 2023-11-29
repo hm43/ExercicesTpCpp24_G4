@@ -32,14 +32,24 @@ public:
     void setNom(string nom){
         this->nom = nom;
     }
+    string getDesc(){
+        return desc;
+    }
+    void setDesc(string desc){
+        this->desc = desc;
+    }
     int getQte(){
         return qte;
     }
     void setQte(int qte){
         this->qte = qte;
     }
-    
-    
+    double getPrix(){
+        return prix;
+    }
+    void setPrix(double prix){
+        this->prix = prix;
+    }
 };
 
 class Minimarche{
@@ -83,6 +93,7 @@ public:
             if(e.getId().compare(id) == 0){
                 
                 int qte;
+                cout<<"Ancienne valeur de qte: "<<e.getQte()<<endl;
                 cout<<"Donner la qte: ";
                 cin>>qte;
                 e.setQte(qte);
@@ -95,7 +106,9 @@ public:
         for(auto &e: stock){
             cout<<"Id: "<<e.getId()<<endl;
             cout<<"Nom: "<<e.getNom()<<endl;
-            cout<<"Qte: "<<e.getQte()<<endl;
+            cout<<"Description: "<<e.getDesc()<<endl;
+            cout<<"Quantite: "<<e.getQte()<<endl;
+            cout<<"Prix: "<<e.getPrix()<<endl;
         }
     }
 };
