@@ -1,7 +1,8 @@
-#include<iostream>
+#include <iostream>
 #include <string>
 #include <vector>
 using namespace std;
+
 class Article{
 private:
     string id;
@@ -17,20 +18,14 @@ public:
         qte = 0;
         prix = 0;
     }
-    Article(string id, string nom, string desc, int qte, double prix){
-        this->id = id;
-        this->nom = nom;
-        this->desc = desc;
-        this->qte = qte;
-        this->prix = prix;
-    }
+    Article(string id, string nom, string desc, int qte, double prix)
+    :id(id), nom(nom), desc(desc), qte(qte), prix(prix){}
     string getId(){
         return id;
     }
     void setId(string id){
         this->id = id;
     }
-    
     string getNom(){
         return nom;
     }
@@ -43,48 +38,100 @@ public:
     void setQte(int qte){
         this->qte = qte;
     }
-    // Les autres
+    
     
 };
+
 class Minimarche{
 private:
     string nom;
-    vector<Article> stock;
+    vector <Article> stock;
 public:
     Minimarche(){
         nom = "";
     }
     Minimarche(string nom){
-        nom = nom;
+        this->nom = nom;
     }
     void ajouterArticle(){
-        string id, nom, desc = "";
+        string id;
+        string nom;
+        string desc;
         int qte;
-        double prix = 0;
-        cout<<"Donner l'id de l'article: ";
+        double prix;
+        cout<<"Donner l'id: ";
+        cin.ignore();
         getline(cin, id);
-        cout<<"Donner le nom de l'article: ";
+        cout<<"Donner le nom: ";
         getline(cin, nom);
-        cout<<"Donner la qte de l'article: ";
+        cout<<"Donner la description: ";
+        getline(cin, desc);
+        cout<<"Donner la qte: ";
         cin>>qte;
-        Article a(id, nom, desc, qte, prix);
+        cout<<"Donner le prix: ";
+        cin>>prix;
+        Article a(id,nom, desc, qte, prix);
         stock.push_back(a);
     }
-    void modifierQte(){
+    void majQte(){
         string id;
-        cout<<"Donner l'id de l'article a modifier: ";
-        getline(cin,id);
-        for(Article &a: stock){
-            if(a.getId().compare(id) == 0){
-                cout<<"Donner la nouvelle qte: ";
+        cout<<"Donner l'id: ";
+        cin.ignore();
+        getline(cin, id);
+        
+        for(auto &e: stock){
+            if(e.getId().compare(id) == 0){
+                
                 int qte;
+                cout<<"Donner la qte: ";
                 cin>>qte;
-                a.setQte(qte);
+                e.setQte(qte);
                 break;
             }
         }
     }
+    void afficher(){
+        cout<<"Le nom du mini merche est: "<<nom<<endl<<endl;
+        for(auto &e: stock){
+            cout<<"Id: "<<e.getId()<<endl;
+            cout<<"Nom: "<<e.getNom()<<endl;
+            cout<<"Qte: "<<e.getQte()<<endl;
+        }
+    }
 };
-int main(){
+int main() {
+    Minimarche m("My store");
+    int choix;
+menu:
+    cout<<endl<<endl<<"   Menu   "<<endl<<endl;
+    cout<<"1. Ajouter "<<endl;
+    cout<<"2. MAJ la qte "<<endl;
+    cout<<"3. Afficher "<<endl;
+    cout<<"4. Quitter "<<endl;
+    cout<<">> ";
+    cin>>choix;
+    switch (choix) {
+        case 1:
+            m.ajouterArticle();
+            goto menu;
+            break;
+        case 2:
+            m.majQte();
+            goto menu;
+            break;
+        case 3:
+            m.afficher();
+            goto menu;
+            break;
+        case 4:
+            cout<<endl<<"Au revoir"<<endl;
+            break;
+        default:
+            cout<<"Reessayer"<<endl;
+            goto menu;
+            break;
+    }
+    
+    
     return 0;
 }
